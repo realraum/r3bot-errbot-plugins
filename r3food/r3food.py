@@ -102,7 +102,7 @@ class R3food(BotPlugin):
     @arg_botcmd('--when', type=str, default=False, unpack_args=False)
     def food(self, message, args):
         """Let food happen."""
-        sender = str(message.frm)
+        sender = str(message.frm.nick)
         occupants = self.get_room_occupants(message)
         if not occupants:
             yield 'You are not in a #room, right?'
