@@ -25,11 +25,11 @@ class R3food(BotPlugin):
     def listeners_show(self, msg, args):
         listeners = self['listeners']
         listeners = map(str, listeners)
-        yield 'we have {} !food listeners: {}'.format(len(listeners), ', '.join(listeners))
+        yield 'our !food listeners: {}'.format(', '.join(listeners))
 
     @arg_botcmd('nickname', type=str, unpack_args=False, nargs='?')
     def listeners_add(self, msg, args):
-        nickname = args.nickname if args.nickname else msg.frm.nick
+        nickname = args.nickname if args.nickname else str(msg.frm.nick)
         with self.mutable('listeners') as listeners:
             if nickname not in listeners:
                 listeners.append(nickname)
@@ -39,7 +39,7 @@ class R3food(BotPlugin):
 
     @arg_botcmd('nickname', type=str, unpack_args=False, nargs='?')
     def listeners_remove(self, msg, args):
-        nickname = args.nickname if args.nickname else msg.frm.nick
+        nickname = args.nickname if args.nickname else str(msg.frm.nick)
         with self.mutable('listeners') as listeners:
             if nickname in listeners:
                 listeners.remove(nickname)
@@ -108,7 +108,7 @@ class R3food(BotPlugin):
             yield 'You are not in a #room, right?'
             return
 
-        yield 'Thanks for the hint! Please give people some time to reply ...'
+        yield 'Thanks for the hint, {}! Please give people some time to reply ...'.format(sender)
 
         self.notify_email(sender, args.url, args.when)
         yield self.notify_listeners(sender, args.url, args.when, occupants)
