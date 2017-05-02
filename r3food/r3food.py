@@ -47,6 +47,10 @@ class R3food(BotPlugin):
             else:
                 return '{} not a !food listener!'.format(nickname)
 
+    @botcmd(admin_only=True)
+    def listeners_clear(self, msg, args):
+        self['listeners'] = []
+
     @botcmd
     def emails_show(self, msg, args):
         emails = self['emails']
