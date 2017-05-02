@@ -84,7 +84,7 @@ class R3food(BotPlugin):
     def get_room_occupants(self, msg):
         room = msg.to
         try:
-            return map(lambda x: str(x.nick), room.occupants)
+            return list(map(lambda x: str(x.nick), room.occupants))
         except Exception:
             return None
 
@@ -99,9 +99,9 @@ class R3food(BotPlugin):
         l = ''
         for user in listeners:
             if user in occupants:
-                l += user + '     in ' + ':'.join(occupants) + '\n'
+                l += '- ' + user + '     in ' + ':'.join(occupants) + ', '
             else:
-                l += user + ' not in ' + ':'.join(occupants) + '\n'
+                l += '- ' + user + ' not in ' + ':'.join(occupants) + ', '
 
         return l
 
