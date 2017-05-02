@@ -23,12 +23,10 @@ class R3food(BotPlugin):
                 'stmp-user': 'changeme',
                 'stmp-password': 'changeme'}
 
-
     @botcmd
     def listeners_show(self, msg, args):
         listeners = self['listeners']
         yield 'we have {} !food listeners: {}'.format(len(listeners), ', '.join(listeners))
-
 
     @arg_botcmd('nickname', type=str, unpack_args=False, nargs='?')
     def listeners_add(self, msg, args):
@@ -39,7 +37,6 @@ class R3food(BotPlugin):
                 return 'added {} to !food listeners!'.format(nickname)
             else:
                 return '{} already a !food listener!'.format(nickname)
-
 
     @arg_botcmd('nickname', type=str, unpack_args=False, nargs='?')
     def listeners_remove(self, msg, args):
@@ -54,9 +51,10 @@ class R3food(BotPlugin):
     @botcmd
     def emails_show(self, msg, args):
         emails = self['emails']
-        emails_text = ', '.join(nick + ':' + mail for nick, mail in emails.items())
+        emails_text = ', '.join(
+            nick + ':' + mail for nick,
+            mail in emails.items())
         yield 'we have {} !food emails: {}'.format(len(emails), emails_text)
-
 
     @arg_botcmd('email', type=str, unpack_args=False)
     def emails_add(self, msg, args):
@@ -68,17 +66,16 @@ class R3food(BotPlugin):
             else:
                 return '{} already a !food email listener!'.format(nickname)
 
-
     @arg_botcmd('email', type=str, unpack_args=False)
     def emails_remove(self, msg, args):
         nickname = str(msg.frm)
         with self.mutable('emails') as l:
             if nickname in l:
                 del l[nickname]
-                return 'removed {} from !food email listeners!'.format(nickname)
+                return 'removed {} from !food email listeners!'.format(
+                    nickname)
             else:
                 return '{} not a !food email listener!'.format(nickname)
-
 
     @arg_botcmd('url', type=str, unpack_args=False, nargs='?')
     @arg_botcmd('--later', type=bool, default=False, unpack_args=False)
