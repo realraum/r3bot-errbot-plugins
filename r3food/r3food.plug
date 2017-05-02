@@ -1,0 +1,12 @@
+[Core]
+module = r3food
+name = r3food
+
+[Documentation]
+description = realraum collaborative food ordering system
+
+[Python]
+version = 3
+
+[Errbot]
+
