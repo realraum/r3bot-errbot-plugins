@@ -28,7 +28,7 @@ class R3food(BotPlugin):
 
     @arg_botcmd('nickname', type=str, unpack_args=False, nargs='?')
     def listeners_add(self, msg, args):
-        nickname = args.nickname if args.nickname else msg.frm
+        nickname = args.nickname if args.nickname else msg.frm.nick
         with self.mutable('listeners') as listeners:
             if nickname not in listeners:
                 listeners.append(nickname)
@@ -38,7 +38,7 @@ class R3food(BotPlugin):
 
     @arg_botcmd('nickname', type=str, unpack_args=False, nargs='?')
     def listeners_remove(self, msg, args):
-        nickname = args.nickname if args.nickname else msg.frm
+        nickname = args.nickname if args.nickname else msg.frm.nick
         with self.mutable('listeners') as listeners:
             if nickname in listeners:
                 listeners.remove(nickname)
@@ -75,11 +75,20 @@ class R3food(BotPlugin):
             else:
                 return '{} not a !food email listener!'.format(nickname)
 
-    def notify_listeners(self, sender, url, when):
+    def get_room_occupants(self, msg):
+        room = msg.to
+        try:
+            return map(lambda x: x.nick, room.occupants)
+        except Exception:
+            return None
+
+    def notify_listeners(self, sender, url, when, occupants):
         when = when if when else 'NOW'
         url = url if url else ''
-        listeners = self['listeners']
-        # TODO: filter offline users?
+
+        listeners = filter(lambda user: user in occupants, self['listeners'])
+        listeners.remove(sender)
+
         listeners = map(str, listeners)
         listeners = ', '.join(listeners)
         return 'Hey {}, want some food {}? {}'.format(listeners, when, url)
@@ -92,11 +101,15 @@ class R3food(BotPlugin):
     def food(self, message, args):
         """Let food happen."""
         sender = str(message.frm)
+        occupants = self.get_room_occupants(message)
+        if not occupants:
+            yield 'You are not in a #room, right?'
+            return
 
         yield 'Thanks for the hint! Please give people some time to reply ...'
 
         self.notify_email(sender, args.url, args.when)
-        yield self.notify_listeners(sender, args.url, args.when)
+        yield self.notify_listeners(message, sender, args.url, args.when, occupants)
 
 
 
