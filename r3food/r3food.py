@@ -24,6 +24,7 @@ class R3food(BotPlugin):
     @botcmd
     def listeners_show(self, msg, args):
         listeners = self['listeners']
+        listeners = map(str, listeners)
         yield 'we have {} !food listeners: {}'.format(len(listeners), ', '.join(listeners))
 
     @arg_botcmd('nickname', type=str, unpack_args=False, nargs='?')
