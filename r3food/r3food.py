@@ -109,7 +109,7 @@ class R3food(BotPlugin):
         yield 'Thanks for the hint! Please give people some time to reply ...'
 
         self.notify_email(sender, args.url, args.when)
-        yield self.notify_listeners(message, sender, args.url, args.when, occupants)
+        yield self.notify_listeners(sender, args.url, args.when, occupants)
 
 
 
