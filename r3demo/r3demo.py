@@ -56,10 +56,10 @@ class R3demo(BotPlugin):
 
         You should delete it if you're not using it to override any default behaviour
         """
-        self.send(
-                message.frm,
-                "r3demo: callback_message",
-            )
+        # self.send(
+        #         message.frm,
+        #         "r3demo: callback_message",
+        #     )
         pass
 
     def callback_botmessage(self, message):
@@ -68,10 +68,10 @@ class R3demo(BotPlugin):
 
         You should delete it if you're not using it to override any default behaviour
         """
-        self.send(
-                message.frm,
-                "r3demo: callback_botmessage",
-            )
+        # self.send(
+        #         message.frm,
+        #         "r3demo: callback_botmessage",
+        #     )
         pass
 
 
