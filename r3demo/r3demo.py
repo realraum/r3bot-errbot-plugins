@@ -78,7 +78,7 @@ class R3demo(BotPlugin):
     def r3room(self, msg, args):
         room = msg.to
         if not isinstance(room, IRCRoom):
-            return 'you are not in a room ...'
+            return 'you are not in a room ...: {}'.format(type(room))
         people = map(lambda x: x.nick, room.occupants)
         return """room: {} ({})
         occupants: {}
