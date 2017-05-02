@@ -86,8 +86,9 @@ class R3food(BotPlugin):
         when = when if when else 'NOW'
         url = url if url else ''
 
-        listeners = filter(lambda user: user in occupants, self['listeners'])
+        listeners = self['listeners']
         listeners.remove(sender)
+        listeners = filter(lambda user: user in occupants, listeners)
 
         listeners = map(str, listeners)
         listeners = ', '.join(listeners)
