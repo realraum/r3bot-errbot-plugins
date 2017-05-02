@@ -74,6 +74,23 @@ class R3demo(BotPlugin):
         #     )
         pass
 
+    @botcmd()
+    def r3msg(self, msg, args):
+        room = msg.frm.room
+        return """room: {} ({})
+        occupants: {}
+        """.format(str(room), type(room), room.occupants)
+
+    @botcmd()
+    def r3me(self, msg, args):
+        frm = msg.frm
+        return """nick: {}
+        user: {}
+        host: {}
+        client: {}
+        fullname: {}
+        """.format(frm.nick, frm.user, frm.host, frm.client, frm.fullname)
+
     # Passing split_args_with=None will cause arguments to be split on any kind
     # of whitespace, just like Python's split() does
     @botcmd(split_args_with=None)
