@@ -1,6 +1,7 @@
 from errbot import BotPlugin, botcmd, arg_botcmd
 from common import mail
 
+
 class R3food(BotPlugin):
     """
     r3food: realraum collaborative food ordering system
@@ -11,6 +12,7 @@ class R3food(BotPlugin):
             self['listeners'] = []
         if 'emails' not in self:
             self['emails'] = dict()
+        self.mail = None
 
     def get_configuration_template(self):
         """
@@ -24,7 +26,7 @@ class R3food(BotPlugin):
     @botcmd
     def listeners_show(self, msg, args):
         listeners = self['listeners']
-        #listeners = map(str, listeners)
+        # listeners = map(str, listeners)
         yield 'our !food listeners: {}'.format(', '.join(listeners))
 
     @arg_botcmd('nickname', type=str, unpack_args=False, nargs='?')
@@ -51,6 +53,11 @@ class R3food(BotPlugin):
     def listeners_clear(self, msg, args):
         self['listeners'] = []
         return 'listeners cleared!'
+
+    @botcmd(admin_only=True)
+    def emails_clear(self, msg, args):
+        self['emails'] = []
+        return 'emails cleared!'
 
     @botcmd
     def emails_show(self, msg, args):
@@ -100,7 +107,7 @@ class R3food(BotPlugin):
 
         listeners = map(str, listeners)
         listeners = ', '.join(listeners)
-        return 'Hey {}, want some food {}? {}'.format(listeners, when, url)
+        return 'Hey {} - want some food {}? {}'.format(listeners, when, url)
 
     def notify_email(self, sender, url, when):
         pass
@@ -119,7 +126,3 @@ class R3food(BotPlugin):
 
         self.notify_email(sender, args.url, args.when)
         yield self.notify_listeners(sender, args.url, args.when, occupants)
-
-
-
-
