@@ -76,7 +76,7 @@ class R3demo(BotPlugin):
 
     @botcmd()
     def r3msg(self, msg, args):
-        room = msg.frm.room
+        room = msg.to
         return """room: {} ({})
         occupants: {}
         """.format(str(room), type(room), room.occupants)
