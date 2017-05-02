@@ -77,9 +77,12 @@ class R3demo(BotPlugin):
     @botcmd()
     def r3msg(self, msg, args):
         room = msg.to
+        if not isinstance(room, IRCRoom):
+            return 'you are not in a room ...'
+        people = map(lambda x: x.nick, room.occupants)
         return """room: {} ({})
         occupants: {}
-        """.format(str(room), type(room), room.occupants)
+        """.format(str(room), type(room), ', '.join(people))
 
     @botcmd()
     def r3me(self, msg, args):
