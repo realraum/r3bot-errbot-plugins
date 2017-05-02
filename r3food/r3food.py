@@ -84,7 +84,7 @@ class R3food(BotPlugin):
     def get_room_occupants(self, msg):
         room = msg.to
         try:
-            return map(lambda x: x.nick, room.occupants)
+            return map(lambda x: str(x.nick), room.occupants)
         except Exception:
             return None
 
