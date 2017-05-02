@@ -1,5 +1,5 @@
 from errbot import BotPlugin, botcmd, arg_botcmd, webhook
-
+from errbot.backends.irc import IRCRoom
 
 class R3demo(BotPlugin):
     """
@@ -75,7 +75,7 @@ class R3demo(BotPlugin):
         pass
 
     @botcmd()
-    def r3msg(self, msg, args):
+    def r3room(self, msg, args):
         room = msg.to
         if not isinstance(room, IRCRoom):
             return 'you are not in a room ...'
