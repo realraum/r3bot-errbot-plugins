@@ -30,7 +30,7 @@ class R3demo(BotPlugin):
         """
         return {'EXAMPLE_KEY_1': "Example value",
                 'EXAMPLE_KEY_2': ["Example", "Value"]
-               }
+                }
 
     def check_configuration(self, configuration):
         """
@@ -74,15 +74,12 @@ class R3demo(BotPlugin):
         #     )
         pass
 
-
-
     # Passing split_args_with=None will cause arguments to be split on any kind
     # of whitespace, just like Python's split() does
     @botcmd(split_args_with=None)
     def r3demo(self, message, args):
         """A command which simply returns 'Example'"""
         return "Example message from r3demo ..."
-
 
     @arg_botcmd('name', type=str)
     @arg_botcmd('--favorite-number', type=int, unpack_args=False)
@@ -97,6 +94,4 @@ class R3demo(BotPlugin):
             return "Hello {name}".format(name=args.name)
         else:
             return "Hello {name}, I hear your favorite number is {number}".format(
-                name=args.name,
-                number=args.favorite_number,
-            )
+                name=args.name, number=args.favorite_number, )
