@@ -24,7 +24,7 @@ class R3food(BotPlugin):
     @botcmd
     def listeners_show(self, msg, args):
         listeners = self['listeners']
-        listeners = map(str, listeners)
+        #listeners = map(str, listeners)
         yield 'our !food listeners: {}'.format(', '.join(listeners))
 
     @arg_botcmd('nickname', type=str, unpack_args=False, nargs='?')
@@ -50,6 +50,7 @@ class R3food(BotPlugin):
     @botcmd(admin_only=True)
     def listeners_clear(self, msg, args):
         self['listeners'] = []
+        return 'listeners cleared!'
 
     @botcmd
     def emails_show(self, msg, args):
@@ -94,6 +95,16 @@ class R3food(BotPlugin):
         listeners = self['listeners']
         if sender in listeners:
             listeners.remove(sender)
+
+        l = ''
+        for user in listeners:
+            if user in occupants:
+                l += user + '     in ' + ':'.join(occupants) + '\n'
+            else:
+                l += user + ' not in ' + ':'.join(occupants) + '\n'
+
+        return l
+
         listeners = filter(lambda user: user in occupants, listeners)
 
         listeners = map(str, listeners)
