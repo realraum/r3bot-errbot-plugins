@@ -88,7 +88,8 @@ class R3food(BotPlugin):
         url = url if url else ''
 
         listeners = self['listeners']
-        listeners.remove(sender)
+        if sender in listeners:
+            listeners.remove(sender)
         listeners = filter(lambda user: user in occupants, listeners)
 
         listeners = map(str, listeners)
