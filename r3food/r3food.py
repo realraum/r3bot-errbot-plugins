@@ -96,15 +96,6 @@ class R3food(BotPlugin):
         if sender in listeners:
             listeners.remove(sender)
 
-        l = ''
-        for user in listeners:
-            if user in occupants:
-                l += '- ' + user + '     in ' + ':'.join(occupants) + ', '
-            else:
-                l += '- ' + user + ' not in ' + ':'.join(occupants) + ', '
-
-        return l
-
         listeners = filter(lambda user: user in occupants, listeners)
 
         listeners = map(str, listeners)
