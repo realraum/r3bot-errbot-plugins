@@ -1,0 +1,12 @@
+[Core]
+module = r3demo
+name = r3demo
+
+[Documentation]
+description = plugin to demo errbot stuff
+
+[Python]
+version = 3
+
+[Errbot]
+
